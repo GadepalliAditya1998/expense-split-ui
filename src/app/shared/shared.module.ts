@@ -5,6 +5,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { HttpService } from './services/http.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   imports: [

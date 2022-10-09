@@ -1,0 +1,14 @@
+<div class="header">
+    <h6>{{selectedGroup.name}}</h6>
+    <p class="description margin-clear">{{selectedGroup.description}}</p>
+</div>
+<div class="body">
+    <ul class="padding-clear d-flex margin-clear">
+        <li routerLinkActive="active"><a routerLink="expenses">Expenses</a></li>
+        <li routerLinkActive="active"><a routerLink="balances">Balances</a></li>
+        <li routerLinkActive="active"><a routerLink="members">Members</a></li>
+    </ul>
+    <div class="p-10">
+        <router-outlet></router-outlet>
+    </div>
+</div>
