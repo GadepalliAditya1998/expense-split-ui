@@ -9,11 +9,14 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'split-expense-ui';
 
-  constructor(private routerService: Router) {}
+  constructor(
+    private routerService: Router,
+  ) {}
 
   ngOnInit(): void {
-    if (localStorage.getItem('userToken')) {
-      console.log('TODO: Implement home page');
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      this.routerService.navigateByUrl('home');
     } else {
       this.routerService.navigateByUrl('login');
     }
