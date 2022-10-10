@@ -42,8 +42,7 @@ const routes: Routes = [
               },
             ],
           },
-
-          // { path: '', redirectTo: ':id/expenses', pathMatch: 'full' },
+          { path: '', redirectTo: ':id/expenses', pathMatch: 'full' },
         ],
       },
       { path: 'friends', component: FriendsComponent },
