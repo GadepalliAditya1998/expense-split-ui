@@ -35,6 +35,11 @@ const routes: Routes = [
                 path: 'members',
                 component: GroupMembersComponent,
               },
+              {
+                path: '',
+                redirectTo: 'expenses',
+                pathMatch: 'full',
+              },
             ],
           },
 

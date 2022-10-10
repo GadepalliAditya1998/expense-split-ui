@@ -41,7 +41,7 @@ export class GroupsComponent implements OnInit {
     this.selectedGroupId = id;
     this.selectedGroup = this.groups.find((g) => g.id === id);
     // console.log(`groups/${this.selectedGroupId}/expenses`);
-    this.router.navigateByUrl(`${this.selectedGroupId}/expenses`);
+    this.router.navigateByUrl(`/home/groups/${this.selectedGroupId}`);
   }
 
   public showAddGroupModel(): void {
