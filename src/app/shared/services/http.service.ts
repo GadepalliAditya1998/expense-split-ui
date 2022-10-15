@@ -36,6 +36,14 @@ export class HttpService {
     });
   }
 
+  public delete(path: string, queryParams?: any): Observable<any> {
+    let requestHeader = this.headers;
+    return this.httpClient.delete(`${this.baseUrl}/${path}`, {
+      params: queryParams,
+      headers: requestHeader,
+    });
+  }
+
   private get headers() :HttpHeaders | any {
     const token = localStorage.getItem('userToken');
     if(token) {

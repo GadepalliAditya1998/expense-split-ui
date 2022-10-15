@@ -83,4 +83,8 @@ export class ExpensesComponent implements OnInit {
     };
     this.modalService.show(AddExpenseComponent, options);
   }
+
+  public deleteExpense(id: number) {
+    
+  }
 }

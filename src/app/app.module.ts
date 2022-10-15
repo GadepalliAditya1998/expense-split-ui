@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { AddExpenseComponent } from './groups/expenses/add-expense/add-expense.c
 import { ExpenseService } from './groups/expenses/services';
 import { UserService } from './shared/services/user.service';
 import { DatePipe } from '@angular/common';
+import { InvitationService } from './shared/services/invitation.service';
 
 @NgModule({
   declarations: [
@@ -34,8 +36,10 @@ import { DatePipe } from '@angular/common';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
+
   ],
   providers:[
     LoginService,
@@ -43,6 +47,7 @@ import { DatePipe } from '@angular/common';
     ExpenseService,
     UserService,
     DatePipe,
+    InvitationService,
   ],
   entryComponents:[
     AddGroupComponent,

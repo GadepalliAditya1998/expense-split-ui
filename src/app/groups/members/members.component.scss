@@ -1,8 +1,13 @@
 @import "/src/colors.scss";
 
+.action-item {
+  margin: 0 2px;
+}
+
 .admin-badge {
   color: $primaryColor;
   border: 1px solid $primaryColor;
   padding: 2px 4px;
   border-radius: 3px;
 }
+

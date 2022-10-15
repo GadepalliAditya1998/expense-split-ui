@@ -2,10 +2,11 @@
 
 .expense-actions {
   padding: 10px;
-  border-bottom: 1px solid $borderColor;
+  //   border-bottom: 0.1px solid $borderColor;
 }
 
 .expense-list {
+  overflow-y: auto;
   padding: 10px;
 
   .expense-list-item {
@@ -16,4 +17,14 @@
       margin-right: 10px;
     }
   }
+}
+
+.dropdown-menu.show {
+  display: block !important;
+  transform: translateX(-150px) translateY(-50px) !important;
+}
+
+.options-more {
+  margin-top: 10px;
+  margin-left: 10px;
 }

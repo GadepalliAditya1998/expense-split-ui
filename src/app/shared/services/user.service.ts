@@ -9,4 +9,8 @@ export class UserService {
   public getContextUserDetails(): Observable<any> {
     return this.httpService.get('users/contextuserdetails');
   }
+
+  public searchUsers(query?: string): Observable<any> {
+    return this.httpService.get('search/users', {query: query});
+  }
 }
