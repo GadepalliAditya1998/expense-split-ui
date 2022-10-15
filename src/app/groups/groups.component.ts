@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GroupService } from './services/groups.service';
 import { AddGroupComponent } from './add-group';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-groups',
@@ -10,10 +11,12 @@ import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 })
 export class GroupsComponent implements OnInit {
   selectedGroupId: number = 0;
+  selectedGroup: any;
   groups: Array<any> = [];
   constructor(
     private groupService: GroupService,
-    private bsModalService: BsModalService
+    private bsModalService: BsModalService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -22,14 +25,23 @@ export class GroupsComponent implements OnInit {
 
   public expandGroup(i: number): void {
     this.selectedGroupId = i;
+    this.selectGroup(i);
   }
 
   public loadUserGroups(): void {
     this.groupService.getUsergroups().subscribe((d) => {
       if (d) {
         this.groups = d;
+        this.selectGroup(this.groups[0].id);
       }
     });
+  }
+
+  private selectGroup(id: number): void {
+    this.selectedGroupId = id;
+    this.selectedGroup = this.groups.find((g) => g.id === id);
+    // console.log(`groups/${this.selectedGroupId}/expenses`);
+    this.router.navigateByUrl(`/home/groups/${this.selectedGroupId}`);
   }
 
   public showAddGroupModel(): void {

@@ -1,0 +1,19 @@
+@import "/src/colors.scss";
+
+.expense-actions {
+  padding: 10px;
+  border-bottom: 1px solid $borderColor;
+}
+
+.expense-list {
+  padding: 10px;
+
+  .expense-list-item {
+    .p-10 {
+      padding: 10px !important;
+    }
+    .date {
+      margin-right: 10px;
+    }
+  }
+}

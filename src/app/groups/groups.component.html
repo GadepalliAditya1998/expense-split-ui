@@ -1,21 +1,38 @@
-<div class="group-list" *ngIf="groups.length > 0 else emptyTemplate">
-    <div class="group-list-header d-flex justify-content-between">
-        <p class="margin-clear">Groups</p>
-        <a class="text-link" (click)="showAddGroupModel()">+ADD</a>
-    </div>
-    <div class="group-list-item" *ngFor="let g of groups">
-    <div class="card" (click) = "expandGroup(g.id)" [class.selected-group] = "g.id === selectedGroupId">
-        <div class="d-flex">
-        <img src="/assets/images/logo.png" height="50" width="50" />
-        <div>
-            <h6 class="margin-clear">{{g.name}}</h6>
-            <p class="text-secondary margin-clear">{{g.description}}</p>
+<div class="group-container">
+    <div class="group-list" *ngIf="groups.length > 0 else emptyTemplate">
+        <div class="group-list-header d-flex justify-content-between">
+            <p class="margin-clear">Groups</p>
+            <a class="text-link" (click)="showAddGroupModel()">+ADD</a>
+        </div>
+        <div class="group-list-item" *ngFor="let g of groups">
+        <div class="card" (click) = "expandGroup(g.id)" [class.selected-group] = "g.id === selectedGroupId">
+            <div class="d-flex">
+            <img src="/assets/images/logo.png" height="50" width="50" />
+            <div>
+                <h6 class="margin-clear">{{g.name}}</h6>
+                <p class="text-secondary margin-clear">{{g.description}}</p>
+            </div>
+            </div>
         </div>
         </div>
     </div>
+    <div class="group-details" *ngIf="selectedGroup">
+        <div class="header">
+            <h6>{{selectedGroup.name}}</h6>
+            <p class="description margin-clear">{{selectedGroup.description}}</p>
+        </div>
+        <div class="body">
+            <ul class="padding-clear d-flex margin-clear">
+                <li routerLinkActive="active"><a routerLink="{{selectedGroup.id}}/expenses">Expenses</a></li>
+                <li routerLinkActive="active"><a routerLink="{{selectedGroup.id}}/balances">Balances</a></li>
+                <li routerLinkActive="active"><a routerLink="{{selectedGroup.id}}/members">Members</a></li>
+            </ul>
+            <div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </div>
 </div>
-<div class="group-details"></div>
 
 <ng-template #emptyTemplate>
     <div class="d-flex flex-column justify-content-center align-items-center h-100">

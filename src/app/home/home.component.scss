@@ -3,12 +3,14 @@ $menuSize: 60px;
 .nav-header {
   position: fixed;
   width: 100%;
+  z-index: 10;
   height: $menuSize;
   background-color: #6661d2;
 }
 
 .nav-menu {
   position: fixed;
+  z-index: 10;
   width: $menuSize;
   height: 100vh;
   background-color: RGBA(33, 37, 41, var(--bs-bg-opacity, 1)) !important;

@@ -6,7 +6,7 @@ import { HttpService } from './http.service';
 export class UserService {
   constructor(private httpService: HttpService) {}
 
-  public getContextUserDetails(userId: number): Observable<any> {
+  public getContextUserDetails(): Observable<any> {
     return this.httpService.get('users/contextuserdetails');
   }
 }

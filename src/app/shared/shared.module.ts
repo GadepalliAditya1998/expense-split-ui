@@ -5,6 +5,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { HttpService } from './services/http.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { ProfileImageNamePipe } from './pipes/profile-image-name.pipe';
 
 @NgModule({
   imports: [
@@ -16,13 +17,17 @@ import { BsModalService } from 'ngx-bootstrap/modal';
     ],
     providers:[
         HttpService,
-        BsModalService
+        BsModalService,
     ],
     exports: [
         TooltipModule,
         FormsModule,
         ReactiveFormsModule,
         NgxBootstrapIconsModule,
+        ProfileImageNamePipe,
+    ],
+    declarations: [
+        ProfileImageNamePipe,
     ]
 })
 export class SharedModule {}

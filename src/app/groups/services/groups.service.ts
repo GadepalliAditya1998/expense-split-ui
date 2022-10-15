@@ -13,4 +13,8 @@ export class GroupService {
   public createGroup(group: any): Observable<any> {
     return this.httpService.post('group/add', group);
   }
+
+  public getGroupMembers(groupId: number): Observable<any> {
+    return this.httpService.get(`group/${groupId}/members`);
+  }
 }

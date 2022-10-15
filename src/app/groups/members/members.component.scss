@@ -1,0 +1,8 @@
+@import "/src/colors.scss";
+
+.admin-badge {
+  color: $primaryColor;
+  border: 1px solid $primaryColor;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
