@@ -1,1 +1,27 @@
-<p> Balance works </p>
+<div *ngIf="groupBalances" class="p-10">
+    <div class="p-10 card d-flex flex-row align-items-center"  *ngFor="let groupBalance of groupBalances">
+        <div class="user-image-32">
+            <img src="groupBalance.image" *ngIf="groupBalance.image" />
+            <p class="margin-clear"  *ngIf="!groupBalance.image">{{groupBalance.name | profileimagename}}</p>
+        </div>
+        <div class="mx-10 d-flex flex-column justify-content-between mr-auto">
+            <h5 class="margin-clear">{{groupBalance.name}}</h5>
+            <div class="d-flex mt-1">
+                <span class="fs-smaller color-green" *ngIf="(groupBalance.debtAmount === 0 && groupBalance.lentAmount === 0); else pending">Settled up</span>
+                <ng-template #pending>
+                    <span class="text-secondary mr-10 fs-smaller">Owes you: <span class="color-red">₹{{groupBalance.debtAmount}}</span></span>
+                    <span class="text-secondary fs-smaller">Gets: <span class="color-green">₹{{groupBalance.lentAmount}}</span></span>
+                </ng-template>
+            </div>
+            <!-- <p class="text-secondary margin-clear fs-smaller ">{{user.email}}</p> -->
+        </div>
+        <div class="d-flex">
+            <div class="mr-10">
+                <!-- <button type="button" class="btn btn-outline-primary" disabled tooltip="coming soon">Remind</button> -->
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-primary" *ngIf="(groupBalance.debtAmount > 0 || groupBalance.lentAmount > 0)">Settle up</button>
+            </div>
+        </div>
+    </div>
+</div>

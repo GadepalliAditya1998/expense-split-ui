@@ -2,7 +2,7 @@
 
 .group-container {
   display: flex;
-  height: calc(100% - 20px);
+  min-height: calc(100% - 20px);
 
   .group-list {
     width: 400px;

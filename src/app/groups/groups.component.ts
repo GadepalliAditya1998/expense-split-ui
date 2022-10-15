@@ -16,7 +16,7 @@ export class GroupsComponent implements OnInit {
   constructor(
     private groupService: GroupService,
     private bsModalService: BsModalService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
