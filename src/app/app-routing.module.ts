@@ -7,7 +7,6 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/components/login.component';
 import { GroupBalancesComponent } from './groups/balances';
 import { GroupMembersComponent } from './groups/members/members.component';
-import { GroupDetailsComponent } from './groups/details/details.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,29 +19,23 @@ const routes: Routes = [
         component: GroupsComponent,
         children: [
           {
-            path: ':id',
-            component: GroupDetailsComponent,
-            children: [
-              {
-                path: 'expenses',
-                component: ExpensesComponent,
-              },
-              {
-                path: 'balances',
-                component: GroupBalancesComponent,
-              },
-              {
-                path: 'members',
-                component: GroupMembersComponent,
-              },
-              {
-                path: '',
-                redirectTo: 'expenses',
-                pathMatch: 'full',
-              },
-            ],
+            path: ':id/expenses',
+            component: ExpensesComponent,
           },
-          { path: '', redirectTo: ':id/expenses', pathMatch: 'full' },
+          {
+            path: ':id/balances',
+            component: GroupBalancesComponent,
+          },
+          {
+            path: ':id/members',
+            component: GroupMembersComponent,
+          },
+          {
+            path: ':id',
+            redirectTo: ':id/expenses',
+            pathMatch: 'full',
+          }
+          // { path: '', redirectTo: ':id/expenses', pathMatch: 'full' },
         ],
       },
       { path: 'friends', component: FriendsComponent },

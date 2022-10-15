@@ -1,1 +1,17 @@
-<p> Group Members works </p>
+<div class="p-10">
+    <div *ngIf="groupUsers">
+        <div class="expense-list-item p-10 card d-flex flex-row align-items-center"  *ngFor="let user of groupUsers">
+            <div class="user-image-32">
+                <img src="user.image" *ngIf="user.image" />
+                <p class="margin-clear"  *ngIf="!user.image">{{user.name | profileimagename}}</p>
+            </div>
+            <div class="mx-10 d-flex flex-column justify-content-between mr-auto">
+                <h5 class="margin-clear">{{user.name}}</h5>
+                <p class="text-secondary margin-clear fs-smaller ">{{user.email}}</p>
+            </div>
+            <div class="my-auto admin-badge">
+                <p class="margin-clear fs-smaller text-align-right">{{user.isAdmin ? 'Admin' : ''}}</p>
+            </div>
+        </div>
+    </div>
+</div>

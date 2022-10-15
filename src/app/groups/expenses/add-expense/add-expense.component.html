@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Add Expense</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="formGroup">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name of the Expense</label>
+          <input type="text" id="name" class="form-control" formControlName="name">
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <input type="text" class="form-control" id="description" formControlName="description">
+        </div>
+        <div class="mb-3 d-flex justify-content-between">
+            <div class="w-100 mr-20">
+                <label for="splitType" class="form-label">Split Type</label>
+                <select class="form-select" aria-label="Default select example" id="splitType "formControlName="splitType" (change)="onSplitTypeChange($event)">
+                    <option value="0">Equally</option>
+                    <option value="2">Custom</option>
+                </select>
+            </div>
+            <div class="w-100">
+                <label for="amount" class="form-label">Amount</label>
+                <input type="number" class="form-control" id="amount" formControlName="amount">
+            </div>
+        </div>
+        <div class="mb-3" *ngIf="!isEqualSplit">
+            <p>Custom</p>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="cancel" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="createExpense()">Create</button>
+</div>

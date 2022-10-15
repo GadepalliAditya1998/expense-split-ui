@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-group-balances',
   templateUrl: './balances.component.html',
 })
-export class GroupBalancesComponent {}
+export class GroupBalancesComponent {
+  
+}

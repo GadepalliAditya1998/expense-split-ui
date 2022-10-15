@@ -22,3 +22,54 @@ body {
 .p-10 {
   padding: 10px;
 }
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.mx-10 {
+  margin: 0 10px;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.my-auto {
+  margin: auto 0;
+}
+
+.fs-xl {
+  font-size: x-large;
+}
+
+.fs-smaller {
+  font-size: smaller;
+}
+
+.mt-1 {
+  margin-top: 1px !important;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.color-red {
+  color: var(--bs-red) !important;
+}
+
+.color-green {
+  color: var(--bs-green) !important;
+}
+
+.user-image-32 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background-color: $primaryColor;
+  color: white;
+}

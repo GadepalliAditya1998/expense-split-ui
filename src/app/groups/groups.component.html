@@ -16,8 +16,21 @@
         </div>
         </div>
     </div>
-    <div class="group-details">
-        <router-outlet></router-outlet>
+    <div class="group-details" *ngIf="selectedGroup">
+        <div class="header">
+            <h6>{{selectedGroup.name}}</h6>
+            <p class="description margin-clear">{{selectedGroup.description}}</p>
+        </div>
+        <div class="body">
+            <ul class="padding-clear d-flex margin-clear">
+                <li routerLinkActive="active"><a routerLink="{{selectedGroup.id}}/expenses">Expenses</a></li>
+                <li routerLinkActive="active"><a routerLink="{{selectedGroup.id}}/balances">Balances</a></li>
+                <li routerLinkActive="active"><a routerLink="{{selectedGroup.id}}/members">Members</a></li>
+            </ul>
+            <div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </div>
 </div>
 

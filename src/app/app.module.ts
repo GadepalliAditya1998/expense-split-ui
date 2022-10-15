@@ -14,7 +14,10 @@ import { GroupService } from './groups/services/groups.service';
 import { AddGroupComponent } from './groups/add-group';
 import { GroupBalancesComponent } from './groups/balances';
 import { GroupMembersComponent } from './groups/members/members.component';
-import { GroupDetailsComponent } from './groups/details/details.component';
+import { AddExpenseComponent } from './groups/expenses/add-expense/add-expense.component';
+import { ExpenseService } from './groups/expenses/services';
+import { UserService } from './shared/services/user.service';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -25,9 +28,9 @@ import { GroupDetailsComponent } from './groups/details/details.component';
     GroupsComponent,
     FriendsComponent,
     AddGroupComponent,
-    GroupDetailsComponent,
     GroupBalancesComponent,
     GroupMembersComponent,
+    AddExpenseComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,9 @@ import { GroupDetailsComponent } from './groups/details/details.component';
   providers:[
     LoginService,
     GroupService,
+    ExpenseService,
+    UserService,
+    DatePipe,
   ],
   entryComponents:[
     AddGroupComponent,

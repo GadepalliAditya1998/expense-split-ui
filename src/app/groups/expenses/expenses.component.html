@@ -1,1 +1,23 @@
-<p>expenses works!</p>
+<div class="d-flex flex-row-reverse expense-actions">
+    <button type="button" class="btn btn-primary" (click)="showAddExpenseModal()">Add Expense</button>
+</div>
+<div class="expense-list" *ngIf="expensesList">
+    <div *ngFor="let key of expensesList.keys()">
+        <h6>{{key}}</h6>
+        <div class="expense-list-item p-10 card d-flex flex-row"  *ngFor="let e of expensesList.get(key)">
+            <div class="date">
+                <p class="margin-clear text-secondary">{{e.createdOn | date: 'MMM'}}</p>
+                <p class="margin-clear fs-xl text-secondary">{{e.createdOn | date: 'dd'}}</p>
+            </div>
+            <div class="mx-10 d-flex flex-column justify-content-between mr-auto">
+                <h5 class="margin-clear">{{e.name}}</h5>
+                <p class="text-secondary margin-clear fs-smaller ">{{e.description}}</p>
+                <p class="text-secondary margin-clear fs-smaller ">{{e.paidBy === contextUser.id ? 'You' : e.paidByName}} paid ₹{{e.paidAmount}}</p>
+            </div>
+            <div class="my-auto color-green" [class.color-red]='!e.isLent'>
+                <p class="margin-clear fs-smaller text-align-right">{{e.isLent ? 'You Lent' : 'You Borrowed'}}</p>
+                <p class="margin-clear fs-smaller text-align-right">₹{{e.toBePaidAmount}}</p>
+            </div>
+        </div>
+    </div>
+</div>
