@@ -20,6 +20,7 @@ import { ExpenseService } from './groups/expenses/services';
 import { UserService } from './shared/services/user.service';
 import { DatePipe } from '@angular/common';
 import { InvitationService } from './shared/services/invitation.service';
+import { SettleUpComponent } from './groups/settleup/settleup.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { InvitationService } from './shared/services/invitation.service';
     GroupBalancesComponent,
     GroupMembersComponent,
     AddExpenseComponent,
+    SettleUpComponent,
   ],
   imports: [
     BrowserModule,

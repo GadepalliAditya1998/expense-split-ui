@@ -9,4 +9,12 @@ export class ExpenseService {
   public createExpense(data: any): Observable<any> {
     return this.httpService.post('expenses/add', data);
   }
+
+  public editGroupExpense(groupId: number, expenseId: number, data : any): Observable<any> {
+    return this.httpService.put(`expenses/group/${groupId}/expense/${expenseId}/update`, data);
+  }
+
+  public deleteGroupExpense(groupId: number, expenseId: number): Observable<any> {
+    return this.httpService.delete(`expenses/groups/${groupId}/${expenseId}/delete`);
+  }
 }

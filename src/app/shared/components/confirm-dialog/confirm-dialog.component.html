@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{dialogTitle}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <p >{{title}}</p>
+    <p *ngIf="description">{{description}}</p>
+</div>
+<div class="modal-footer">
+    <button type="cancel" class="btn btn-secondary" (click)="onCancelClick()">{{cancelButtonText}}</button>
+    <button type="button" class="{{confirmButtonClass}}" (click)="onConfirmClick()">{{confirmButtonText}}</button>
+</div>

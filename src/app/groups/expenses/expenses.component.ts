@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { ContextService } from 'src/app/shared/services/context.service';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
@@ -18,6 +19,8 @@ export class ExpensesComponent implements OnInit {
   expensesList: Map<string, Array<any>> = new Map();
   contextUser: any;
 
+  private groupDateKeys: Array<string> = [];
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private httpService: HttpService,
@@ -25,9 +28,7 @@ export class ExpensesComponent implements OnInit {
     private expenseService: ExpenseService,
     private contextService: ContextService,
     private dateTransform: DatePipe
-  ) {
-
-  }
+  ) {}
 
   ngOnInit(): void {
     this.contextUser = this.contextService.getUser();
@@ -41,6 +42,8 @@ export class ExpensesComponent implements OnInit {
   public fetchGroupExpenses(): void {
     this.httpService.get(`expenses/group/${this.groupId}/list`).subscribe({
       next: (data: Array<any>) => {
+        this.clearKeys();
+
         for (let d of data) {
           const date = <string>this.dateTransform.transform(d.expenseDate, 'MMM YYYY');
           if (this.expensesList.has(date)) {
@@ -64,6 +67,8 @@ export class ExpensesComponent implements OnInit {
         } else {
           this.expensesList.set(date,[data]);
         }
+
+        this.clearKeys();
       },
       error: (err) => {},
     });
@@ -84,7 +89,65 @@ export class ExpensesComponent implements OnInit {
     this.modalService.show(AddExpenseComponent, options);
   }
 
-  public deleteExpense(id: number) {
+  public editExpense(expense: any): void {
+    const options: ModalOptions = {
+      initialState: {
+        isEdit: true,
+        expense: expense,
+        onEdit: (data: any) => {
+          this.expenseService.editGroupExpense(this.groupId, expense.expenseId, data).subscribe({next: (data)=>{
+            console.log(data);
+          }});
+        },
+      },
+      ignoreBackdropClick: true,
+    };
+    const ref = this.modalService.show(AddExpenseComponent, options);
+    ref.content!.expense = expense;
+  }
+
+  public showConfirmDeleteModal(key: string, id: number) {
+    let ref : BsModalRef;
+    const options: ModalOptions = {
+      initialState: {
+        result: (result: boolean)=>{
+          if(result) {
+            this.deleteExpense(key, id);
+            ref.hide();
+          }
+        },
+      },
+      ignoreBackdropClick: true,
+    };
     
+    ref =  this.modalService.show(ConfirmDialogComponent, options);
+    ref.content!.title = 'Are you sure to delete the expense?';
+    ref.content!.confirmButtonClass = 'btn btn-danger';
+  }
+
+  public deleteExpense(key: string, id: number) {
+    this.expenseService
+      .deleteGroupExpense(this.groupId, id)
+      .subscribe({ next: (d) => {
+        if(d) {
+          const index = this.expensesList.get(key)!.findIndex(e => e.expenseId === id);
+          if(index != -1) {
+            this.expensesList.get(key)!.splice(index, 1);
+            this.clearKeys();
+          }
+        }
+      }, error: (err) => {} });
+  }
+
+  public keys(): Array<string> {
+    if(this.groupDateKeys.length === 0) {
+      this.groupDateKeys = Array.from(this.expensesList.keys());
+    }
+
+    return this.groupDateKeys;
+  }
+
+  private clearKeys(): void {
+    this.groupDateKeys = [];
   }
 }

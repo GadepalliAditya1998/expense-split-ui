@@ -10,6 +10,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HttpService } from './services/http.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ProfileImageNamePipe } from './pipes/profile-image-name.pipe';
+import { ConfirmDialogComponent } from './components';
 
 @NgModule({
   imports: [
@@ -33,9 +34,11 @@ import { ProfileImageNamePipe } from './pipes/profile-image-name.pipe';
         NgxBootstrapIconsModule,
         ProfileImageNamePipe,
         BsDropdownModule,
+        ConfirmDialogComponent,
     ],
     declarations: [
         ProfileImageNamePipe,
+        ConfirmDialogComponent,
     ]
 })
 export class SharedModule {}

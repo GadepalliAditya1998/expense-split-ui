@@ -34,5 +34,6 @@
 </div>
 <div class="modal-footer">
     <button type="cancel" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="createExpense()">Create</button>
+    <button type="button" class="btn btn-primary" (click)="createExpense()" *ngIf="!isEdit">Create</button>
+    <button type="button" class="btn btn-primary" (click)="updateExpense()" *ngIf="isEdit">Update</button>
 </div>
