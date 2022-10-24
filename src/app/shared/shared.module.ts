@@ -6,10 +6,12 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { allIcons, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { HttpService } from './services/http.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ProfileImageNamePipe } from './pipes/profile-image-name.pipe';
+import { ConfirmDialogComponent } from './components';
 
 @NgModule({
   imports: [
@@ -19,6 +21,7 @@ import { ProfileImageNamePipe } from './pipes/profile-image-name.pipe';
       TooltipModule.forRoot(),
       TypeaheadModule.forRoot(),
       BsDropdownModule.forRoot(),
+      BsDatepickerModule.forRoot(),
       NgxBootstrapIconsModule.pick(allIcons),
     ],
     providers:[
@@ -33,9 +36,12 @@ import { ProfileImageNamePipe } from './pipes/profile-image-name.pipe';
         NgxBootstrapIconsModule,
         ProfileImageNamePipe,
         BsDropdownModule,
+        ConfirmDialogComponent,
+        BsDatepickerModule,
     ],
     declarations: [
         ProfileImageNamePipe,
+        ConfirmDialogComponent,
     ]
 })
 export class SharedModule {}

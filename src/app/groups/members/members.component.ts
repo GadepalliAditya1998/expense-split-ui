@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { map, noop, Observable, Observer, of, switchMap, tap } from 'rxjs';
+import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { ContextService } from 'src/app/shared/services/context.service';
 import { InvitationService } from 'src/app/shared/services/invitation.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -112,9 +113,25 @@ export class GroupMembersComponent implements OnInit {
       next: (data) => {
         if (data) {
           this.modalRef?.hide();
+          this.fetchGroupMembers();
         }
       },
     });
+  }
+
+  public showDeleteUserModal(userId: number): void {
+    const initialState: ModalOptions = {
+      ignoreBackdropClick: true,
+      initialState: {
+      result: (state: boolean) => {
+        if(state) {
+          this.deleteUser(userId);
+        }
+      }}
+    };
+    const ref = this.modalService.show(ConfirmDialogComponent, initialState);
+    ref.content!.description = "Are you sure you want to remove ?";
+    ref.content!.confirmButtonClass = 'btn btn-danger';
   }
 
   public deleteUser(userId: number): void {

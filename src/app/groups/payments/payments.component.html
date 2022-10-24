@@ -1,0 +1,47 @@
+<div class="p-10">
+    <div class="expense-list" *ngIf="groupedPaymentTransactions">
+        <div *ngFor="let item of groupedPaymentTransactions | keyvalue">
+            <h6>{{item.key}}</h6>
+            <div class="expense-list-item p-10 card d-flex flex-row"  *ngFor="let payment of values(item)">
+                <div class="date">
+                    <p class="margin-clear text-secondary">{{payment.paymentDate | date: 'MMM'}}</p>
+                    <p class="margin-clear fs-xl text-secondary">{{payment.paymentDate | date: 'dd'}}</p>
+                </div>
+                <div class="mx-10 d-flex flex-column justify-content-center mr-auto">
+                    <div class="d-flex justify-content-between align-items- center">
+                        <div class="d-flex w-200px">
+                            <div class="user-image-32 mr-10">
+                                <img src="payment.paidByUserImage" *ngIf="payment.paidByUserImage" />
+                                <p class="margin-clear"  *ngIf="!payment.paidByUserImage">{{payment.paidByName | profileimagename}}</p>
+                            </div>
+                            <div>
+                                <h6 class="margin-clear">{{payment.paidByName}}</h6>
+                                <p class="margin-clear text-secondary fs-smaller">Payer</p>
+                            </div>
+                        </div>
+                        <span class="bi bi-arrow-right mb-3 mr-30"></span>
+                        <div class="d-flex w-200px">
+                            <div class="user-image-32 mr-10">
+                                <img src="payment.paidToUserImage" *ngIf="payment.paidToUserImage" />
+                                <p class="margin-clear"  *ngIf="!payment.paidToUserImage">{{payment.paidToName | profileimagename}}</p>
+                            </div>
+                            <div>
+                                <h6 class="margin-clear">{{payment.paidToName}}</h6>
+                                <p class="margin-clear text-secondary fs-smaller">Payee</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="my-auto">
+                        <p class="margin-clear fs-smaller text-align-right text-secondary" *ngIf="payment.paymentMode === 0">Cash</p>
+                        <p class="margin-clear fs-smaller text-align-right text-secondary" *ngIf="payment.paymentMode === 1">UPI</p>
+                        <p class="margin-clear fs-smaller text-align-right text-secondary" *ngIf="payment.paymentMode === 2">BankTransfer</p>
+                        <p class="margin-clear fs-smaller text-align-right text-secondary" *ngIf="payment.paymentMode === 3">Cheque</p>
+                        <p class="margin-clear fs-smaller text-align-right">₹{{payment.amount}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

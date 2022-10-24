@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Add Payment Record</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="formGroup">
+        <div class="mb-3 d-flex justify-content-between align-items- center">
+            <div class="d-flex w-200px">
+                <div class="user-image-32 mr-10">
+                    <img src="balance.paidByUser.image" *ngIf="balance.paidByUser.image" />
+                    <p class="margin-clear"  *ngIf="!balance.paidByUser.image">{{balance.paidByUser.name | profileimagename}}</p>
+                </div>
+                <div>
+                    <h6 class="margin-clear">{{balance.paidByUser.name}}</h6>
+                    <p class="margin-clear text-secondary fs-smaller">Payer</p>
+                </div>
+            </div>
+            <span class="bi bi-arrow-right mb-3 "></span>
+            <div class="d-flex w-200px">
+                <div class="user-image-32 mr-10">
+                    <img src="balance.paidToUser.image" *ngIf="balance.paidToUser.image" />
+                    <p class="margin-clear"  *ngIf="!balance.paidToUser.image">{{balance.paidToUser.name | profileimagename}}</p>
+                </div>
+                <div>
+                    <h6 class="margin-clear">{{balance.paidToUser.name}}</h6>
+                    <p class="margin-clear text-secondary fs-smaller">Payee</p>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 d-flex justify-content-between">
+            <div class="w-200px">
+                <label for="amount" class="form-label">Amount (₹)</label>
+                <input type="number" id="amount" class="form-control" formControlName="amount">      
+            </div>
+            <div class="w-200px">
+                <label for="amount" class="form-label">Payment mode</label>
+                <select formControlName="paymentMode" class="form-select">
+                <option value="{{mode.value}}" *ngFor="let mode of paymentModes">{{mode.name}}</option>
+                </select>
+            </div>
+        </div>
+        
+      </form>
+</div>
+<div class="modal-footer">
+    <button type="cancel" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="savePaymentTransaction()">Pay</button>
+</div>

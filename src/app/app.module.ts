@@ -18,8 +18,10 @@ import { GroupMembersComponent } from './groups/members/members.component';
 import { AddExpenseComponent } from './groups/expenses/add-expense/add-expense.component';
 import { ExpenseService } from './groups/expenses/services';
 import { UserService } from './shared/services/user.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, KeyValuePipe } from '@angular/common';
 import { InvitationService } from './shared/services/invitation.service';
+import { SettleUpComponent } from './groups/settleup/settleup.component';
+import { ExpensePaymentsComponent } from './groups/payments/payments.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { InvitationService } from './shared/services/invitation.service';
     GroupBalancesComponent,
     GroupMembersComponent,
     AddExpenseComponent,
+    SettleUpComponent,
+    ExpensePaymentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,7 @@ import { InvitationService } from './shared/services/invitation.service';
     ExpenseService,
     UserService,
     DatePipe,
+    KeyValuePipe,
     InvitationService,
   ],
   entryComponents:[

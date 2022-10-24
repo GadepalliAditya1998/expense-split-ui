@@ -14,6 +14,14 @@
           <label for="description" class="form-label">Description</label>
           <input type="text" class="form-control" id="description" formControlName="description">
         </div>
+        <div class="form-group mb-3">
+            <input type="text"
+                    formControlName = "expenseDate"
+                    placeholder="Expense Date"
+                    class="form-control"
+                    bsDatepicker
+                    [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'YYYY-MM-DD' }">
+        </div>
         <div class="mb-3 d-flex justify-content-between">
             <div class="w-100 mr-20">
                 <label for="splitType" class="form-label">Split Type</label>
@@ -27,12 +35,26 @@
                 <input type="number" class="form-control" id="amount" formControlName="amount">
             </div>
         </div>
-        <div class="mb-3" *ngIf="!isEqualSplit">
-            <p>Custom</p>
+        <div class="mb-3" *ngIf="!isEqualSplit" formArrayName="expenseUsers">
+            <div class="alert alert-primary" role="alert" *ngIf="false">
+                Custom coming soon
+            </div>
+            <div *ngFor="let user of expenseUsers.controls; let i = index">
+                <div class="input-group mb-3" formArrayName="{{i}}">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" formControlName="checked" (change)="toggleUser($event, i)" aria-label="Checkbox for following text input">
+                    </div>
+                    <div class="align-self-stretch flex-6 border-1px d-flex align-items-center p-10">
+                        <p class="margin-clear">{{user.get('name')!.value}}</p>
+                    </div>
+                    <input type="number" formControlName="amount" class="form-control" aria-label="Text input with checkbox" placeholder="₹">
+                </div>
+            </div>
         </div>
     </form>
 </div>
 <div class="modal-footer">
     <button type="cancel" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="createExpense()">Create</button>
+    <button type="button" class="btn btn-primary" (click)="createExpense()" *ngIf="!isEdit">Create</button>
+    <button type="button" class="btn btn-primary" (click)="updateExpense()" *ngIf="isEdit">Update</button>
 </div>
