@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
@@ -7,7 +7,7 @@ import { ContextService } from 'src/app/shared/services/context.service';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
 import { GroupExpenseListItem } from './models/expense-group-list-item.model';
-import { ExpenseService } from './services/expense.service';
+import { ExpenseService } from '../services/expense.service';
 
 @Component({
   selector: 'app-expenses',
@@ -16,10 +16,8 @@ import { ExpenseService } from './services/expense.service';
 })
 export class ExpensesComponent implements OnInit {
   groupId: number = 0;
-  expensesList: Map<string, Array<any>> = new Map();
+  expensesList: Array<KeyValue<string, Array<any>>> = [];
   contextUser: any;
-
-  private groupDateKeys: Array<string> = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -27,31 +25,28 @@ export class ExpensesComponent implements OnInit {
     private modalService: BsModalService,
     private expenseService: ExpenseService,
     private contextService: ContextService,
-    private dateTransform: DatePipe
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
     this.contextUser = this.contextService.getUser();
     this.activatedRoute.params.subscribe((d) => {
       this.groupId = d['id'];
-      this.expensesList = new Map();
       this.fetchGroupExpenses();
     });
   }
 
   public fetchGroupExpenses(): void {
+    this.expensesList = [];
     this.httpService.get(`expenses/group/${this.groupId}/list`).subscribe({
       next: (data: Array<any>) => {
-        this.clearKeys();
-
-        for (let d of data) {
-          const date = <string>this.dateTransform.transform(d.expenseDate, 'MMM YYYY');
-          if (this.expensesList.has(date)) {
-            this.expensesList.get(date)!.push(d);
-          } else {
-            this.expensesList.set(date,[d]);
-          }
-        }
+        const expenses: Array<any> = data;
+        this.expensesList = expenses.reduce((group, expense) => {
+          const date = this.datePipe.transform(expense.expenseDate, 'MMM YYYY');
+          group[date!] = group[date!] || [];
+          group[date!].push(expense);
+          return group ;
+      }, Object.create(null));
       },
       error: (err) => {},
     });
@@ -60,15 +55,7 @@ export class ExpensesComponent implements OnInit {
   public createExpense(data: any): void {
     this.expenseService.createExpense(data).subscribe({
       next: (d) => {
-        data.id = d;
-        const date = <string>this.dateTransform.transform(new Date(), 'MMM YYYY');
-        if(this.expensesList.has(date)) {
-          this.expensesList.get(date)!.push(data);
-        } else {
-          this.expensesList.set(date,[data]);
-        }
-
-        this.clearKeys();
+        this.fetchGroupExpenses();
       },
       error: (err) => {},
     });
@@ -77,7 +64,6 @@ export class ExpensesComponent implements OnInit {
   public showAddExpenseModal(): void {
     const options: ModalOptions = {
       initialState: {
-        groupId: this.groupId,
         onCreate: (data: any) => {
           data.groupId = this.groupId;
           data.splitType = +data.splitType;
@@ -86,17 +72,19 @@ export class ExpensesComponent implements OnInit {
       },
       ignoreBackdropClick: true,
     };
-    this.modalService.show(AddExpenseComponent, options);
+    const ref = this.modalService.show(AddExpenseComponent, options);
+    ref.content!.groupId = this.groupId;
   }
 
   public editExpense(expense: any): void {
     const options: ModalOptions = {
       initialState: {
+        groupId: this.groupId,
         isEdit: true,
         expense: expense,
         onEdit: (data: any) => {
           this.expenseService.editGroupExpense(this.groupId, expense.expenseId, data).subscribe({next: (data)=>{
-            console.log(data);
+            this.fetchGroupExpenses();
           }});
         },
       },
@@ -129,25 +117,11 @@ export class ExpensesComponent implements OnInit {
     this.expenseService
       .deleteGroupExpense(this.groupId, id)
       .subscribe({ next: (d) => {
-        if(d) {
-          const index = this.expensesList.get(key)!.findIndex(e => e.expenseId === id);
-          if(index != -1) {
-            this.expensesList.get(key)!.splice(index, 1);
-            this.clearKeys();
-          }
-        }
+        this.fetchGroupExpenses();
       }, error: (err) => {} });
   }
 
-  public keys(): Array<string> {
-    if(this.groupDateKeys.length === 0) {
-      this.groupDateKeys = Array.from(this.expensesList.keys());
-    }
-
-    return this.groupDateKeys;
-  }
-
-  private clearKeys(): void {
-    this.groupDateKeys = [];
+  public values(item: any): Array<any> {
+    return item.value as  Array<any>;
   }
 }

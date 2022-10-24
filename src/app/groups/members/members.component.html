@@ -17,7 +17,7 @@
                     <p class="margin-clear fs-smaller text-align-right">Admin</p>
                 </div>
                 <div class="action-item" *ngIf="isGroupAdmin || user.id === currentUserId">
-                    <span class="bi bi-trash-fill cursor-pointer" (click)="deleteUser(user.id)"></span>
+                    <span class="bi bi-trash-fill cursor-pointer" (click)="showDeleteUserModal(user.id)"></span>
                 </div>
             </div>
         </div>

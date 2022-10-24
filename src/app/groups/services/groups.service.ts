@@ -33,4 +33,8 @@ export class GroupService {
   public recordPayment(groupId: number, paymentTransaction: any): Observable<any> {
     return this.httpService.post(`group/${groupId}/recordPayment`, paymentTransaction);
   }
+
+  public getGroupPaymentTransactions(groupId: number): Observable<any> {
+    return this.httpService.get(`group/${groupId}/payments`);
+  }
 }

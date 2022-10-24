@@ -29,6 +29,7 @@ export class GroupBalancesComponent {
   }
 
   public fetchGroupBalances() {
+    this.groupBalances = [];
     this.groupService.getGroupUserBalances(this.groupId).subscribe({
       next: (data) => {
         if (data) {
@@ -43,8 +44,8 @@ export class GroupBalancesComponent {
       initialState: {
         balance: {
           amount: groupBalance.balance,
-          paidByUser: groupBalance.isInDebt ?  { name: groupBalance.name, id: groupBalance.userId  } :{ id: this.currentUser.id, name: `${this.currentUser.firstName} ${this.currentUser.lastName}` },
-          paidToUser: !groupBalance.isInDebt ?  { name: groupBalance.name, id: groupBalance.userId  } :{ id: this.currentUser.id, name: `${this.currentUser.firstName} ${this.currentUser.lastName}` },
+          paidByUser: !groupBalance.isInDebt ?  { name: groupBalance.name, id: groupBalance.userId  } :{ id: this.currentUser.id, name: `${this.currentUser.firstName} ${this.currentUser.lastName}` },
+          paidToUser: groupBalance.isInDebt ?  { name: groupBalance.name, id: groupBalance.userId  } :{ id: this.currentUser.id, name: `${this.currentUser.firstName} ${this.currentUser.lastName}` },
         },
         onPayment: (paymentTransaction: any) => {
           const transaction = {
@@ -67,7 +68,7 @@ export class GroupBalancesComponent {
     this.groupService.recordPayment(this.groupId, paymentTransaction).subscribe({next: (data)=>{
       console.log(data);
       if(data) {
-        
+        this.fetchGroupBalances();
       }
     }, error: (err)=>{
       

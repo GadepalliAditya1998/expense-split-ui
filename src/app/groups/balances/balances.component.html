@@ -9,8 +9,8 @@
             <div class="d-flex mt-1">
                 <span class="fs-smaller color-green" *ngIf="(groupBalance.balance === 0); else pending">Settled up</span>
                 <ng-template #pending>
-                    <span class="text-secondary mr-10 fs-smaller" *ngIf="groupBalance.isInDebt">Owes you: <span class="color-green">₹{{groupBalance.balance}}</span></span>
-                    <span class="text-secondary fs-smaller" *ngIf="!groupBalance.isInDebt">You owe: <span class="color-red">₹{{groupBalance.balance}}</span></span>
+                    <span class="text-secondary mr-10 fs-smaller" *ngIf="!groupBalance.isInDebt">Owes you: <span class="color-green">₹{{groupBalance.balance}}</span></span>
+                    <span class="text-secondary fs-smaller" *ngIf="groupBalance.isInDebt">You owe: <span class="color-red">₹{{groupBalance.balance}}</span></span>
                 </ng-template>
             </div>
             <!-- <p class="text-secondary margin-clear fs-smaller ">{{user.email}}</p> -->

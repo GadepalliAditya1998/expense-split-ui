@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/components/login.component';
 import { GroupBalancesComponent } from './groups/balances';
 import { GroupMembersComponent } from './groups/members/members.component';
+import { ExpensePaymentsComponent } from './groups/payments/payments.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,6 +30,10 @@ const routes: Routes = [
           {
             path: ':id/members',
             component: GroupMembersComponent,
+          },
+          {
+            path: ':id/payments',
+            component: ExpensePaymentsComponent,
           },
           {
             path: ':id',

@@ -17,4 +17,5 @@ export class ExpenseService {
   public deleteGroupExpense(groupId: number, expenseId: number): Observable<any> {
     return this.httpService.delete(`expenses/groups/${groupId}/${expenseId}/delete`);
   }
+
 }

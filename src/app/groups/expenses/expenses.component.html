@@ -2,12 +2,12 @@
     <button type="button" class="btn btn-primary" (click)="showAddExpenseModal()">Add Expense</button>
 </div>
 <div class="expense-list" *ngIf="expensesList">
-    <div *ngFor="let key of keys()">
-        <h6>{{key}}</h6>
-        <div class="expense-list-item p-10 card d-flex flex-row"  *ngFor="let e of expensesList.get(key)">
+    <div *ngFor="let item of expensesList | keyvalue">
+        <h6>{{item.key}}</h6>
+        <div class="expense-list-item p-10 card d-flex flex-row"  *ngFor="let e of values(item)">
             <div class="date">
-                <p class="margin-clear text-secondary">{{e.createdOn | date: 'MMM'}}</p>
-                <p class="margin-clear fs-xl text-secondary">{{e.createdOn | date: 'dd'}}</p>
+                <p class="margin-clear text-secondary">{{e.expenseDate | date: 'MMM'}}</p>
+                <p class="margin-clear fs-xl text-secondary">{{e.expenseDate | date: 'dd'}}</p>
             </div>
             <div class="mx-10 d-flex flex-column justify-content-between mr-auto">
                 <h5 class="margin-clear">{{e.name}}</h5>
@@ -24,11 +24,11 @@
                         <p class="margin-clear fs-smaller text-align-right">Individual</p>
                     </div>
                 </ng-template>
-                <div class="btn-group options-more" placement="left" dropdown>
+                <div class="btn-group options-more" placement="left" dropdown *ngIf="e.isLent">
                     <span class="bi bi-three-dots-vertical cursor-pointer" dropdownToggle aria-controls="dropdown-basic"></span>
                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                       <li role="menuitem" (click)="editExpense(e)" *ngIf="e.isLent"><a class="dropdown-item cursor-pointer">Edit</a></li>
-                      <li role="menuitem" (click)="showConfirmDeleteModal(key, e.expenseId)" *ngIf="e.isLent"><a class="dropdown-item cursor-pointer">Delete</a></li>
+                      <li role="menuitem" (click)="showConfirmDeleteModal(item.key, e.expenseId)" *ngIf="e.isLent"><a class="dropdown-item cursor-pointer">Delete</a></li>
                     </ul>
                 </div>
             </div>
