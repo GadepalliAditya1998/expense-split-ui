@@ -1,0 +1,49 @@
+<div class="h-100 d-flex align-items-center">
+    <div class="form-signup w-100 m-auto text-center" *ngIf="!errorMessage; else error">
+        <form [formGroup]="formGroup">
+            <div class="w-100">
+                <img class="mb-4" src="/assets/images/logo.png" alt="" width="72" height="57">
+            </div>
+            <h1 class="h3 mb-3 fw-normal">Signup</h1>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="First Name" formControlName="firstName">
+                <label for="floatingInput" class="field-required">First Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Middle Name" formControlName="middleName">
+                <label for="floatingInput">Middle Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Last Name" formControlName="lastName">
+                <label for="floatingInput" class="field-required">Last Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text"
+                    formControlName = "dateOfBirth"
+                    placeholder="Date of Birth"
+                    class="form-control field-required"
+                    bsDatepicker
+                    [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'YYYY-MM-DD' }">
+                <label for="floatingInput" class="field-required">Date of birth</label>
+            </div>
+
+
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email">
+                <label for="floatingInput" class="field-required">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
+                <label for="floatingPassword" class="field-required">Password</label>
+            </div>
+            
+            <button class="mt-3 w-100 btn btn-lg btn-primary" (click)="register()">Register</button>
+            <p class="mt-5 mb-3 text-muted">© 2017–2022</p>
+        </form>
+    </div>
+    <ng-template #error>{{errorMessage}}</ng-template>
+</div>

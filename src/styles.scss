@@ -103,3 +103,9 @@ typeahead-container {
 .w-200px {
   width: 200px;
 }
+
+.field-required::after {
+  content: "*";
+  color: red;
+  margin-left: 2px;
+}

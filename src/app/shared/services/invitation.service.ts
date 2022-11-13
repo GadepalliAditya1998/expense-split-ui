@@ -9,4 +9,8 @@ export class InvitationService {
   public generateGroupInvitation(groupId: number): Observable<any> {
     return this.httpService.get(`invites/group/${groupId}`);
   }
+
+  public validateAppInviteURL(inviteId: string): Observable<any> {
+    return this.httpService.get(`invites/app/${inviteId}/verify`);
+  }
 }

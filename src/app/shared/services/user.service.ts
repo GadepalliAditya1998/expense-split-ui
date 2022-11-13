@@ -13,4 +13,8 @@ export class UserService {
   public searchUsers(query?: string): Observable<any> {
     return this.httpService.get('search/users', {query: query});
   }
+
+  public registerUser(user: any): Observable<any> {
+    return this.httpService.post('users/create', user);
+  }
 }
