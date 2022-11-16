@@ -22,6 +22,8 @@ import { DatePipe, KeyValuePipe } from '@angular/common';
 import { InvitationService } from './shared/services/invitation.service';
 import { SettleUpComponent } from './groups/settleup/settleup.component';
 import { ExpensePaymentsComponent } from './groups/payments/payments.component';
+import { UserRegistrationComponent } from './register';
+import { AddUserConnectionComponent, UserInvitationComponent } from './shared/components';
 
 @NgModule({
   declarations: [
@@ -37,13 +39,15 @@ import { ExpensePaymentsComponent } from './groups/payments/payments.component';
     AddExpenseComponent,
     SettleUpComponent,
     ExpensePaymentsComponent,
+    UserRegistrationComponent,
+    UserInvitationComponent,
+    AddUserConnectionComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
-
   ],
   providers:[
     LoginService,

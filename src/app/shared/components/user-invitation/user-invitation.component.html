@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Invite</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="mb-3 d-flex">
+        <input type="text" class="form-control mr-10" id="inviteLink" placeholder="Invite link" [(ngModel)]="invitationLink" readonly>
+        <button type="button" class="btn btn-primary" (click)="generate()">Generate</button>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="cancel" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+</div>

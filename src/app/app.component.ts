@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +11,20 @@ export class AppComponent implements OnInit {
 
   constructor(
     private routerService: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('userToken');
-    if (token) {
-      this.routerService.navigateByUrl('home');
+    const routeUrl = window.location.hash;
+    if (routeUrl.includes('/register')) {
+      this.routerService.navigateByUrl('register');
     } else {
-      this.routerService.navigateByUrl('login');
+      const token = localStorage.getItem('userToken');
+      if (token) {
+        this.routerService.navigateByUrl('home');
+      } else {
+        this.routerService.navigateByUrl('login');
+      }
     }
   }
 }

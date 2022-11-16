@@ -6,8 +6,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { ContextService } from 'src/app/shared/services/context.service';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
-import { GroupExpenseListItem } from './models/expense-group-list-item.model';
 import { ExpenseService } from '../services/expense.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-expenses',
@@ -25,7 +25,8 @@ export class ExpensesComponent implements OnInit {
     private modalService: BsModalService,
     private expenseService: ExpenseService,
     private contextService: ContextService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private notificationService: NotificationService,
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +56,7 @@ export class ExpensesComponent implements OnInit {
   public createExpense(data: any): void {
     this.expenseService.createExpense(data).subscribe({
       next: (d) => {
+        this.notificationService.success("Success", "Expense created successfully");
         this.fetchGroupExpenses();
       },
       error: (err) => {},
@@ -84,6 +86,7 @@ export class ExpensesComponent implements OnInit {
         expense: expense,
         onEdit: (data: any) => {
           this.expenseService.editGroupExpense(this.groupId, expense.expenseId, data).subscribe({next: (data)=>{
+            this.notificationService.success("Success", "Expense updated successfully");
             this.fetchGroupExpenses();
           }});
         },
@@ -117,6 +120,7 @@ export class ExpensesComponent implements OnInit {
     this.expenseService
       .deleteGroupExpense(this.groupId, id)
       .subscribe({ next: (d) => {
+        this.notificationService.success("Success","Expense deleted successfully");
         this.fetchGroupExpenses();
       }, error: (err) => {} });
   }

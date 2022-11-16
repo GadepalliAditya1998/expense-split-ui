@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ContextService } from 'src/app/shared/services/context.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { GroupService } from '../services/groups.service';
 import { SettleUpComponent } from '../settleup/settleup.component';
 
@@ -20,6 +21,7 @@ export class GroupBalancesComponent {
     private groupService: GroupService,
     private modalService: BsModalService,
     private contextService: ContextService,
+    private notificationService: NotificationService,
   ) {
     this.currentUser = this.contextService.getUser();
     this.activatedRoute.params.subscribe((route) => {
@@ -66,8 +68,8 @@ export class GroupBalancesComponent {
 
   public recordPaymentTransaction(paymentTransaction: any): void {
     this.groupService.recordPayment(this.groupId, paymentTransaction).subscribe({next: (data)=>{
-      console.log(data);
       if(data) {
+        this.notificationService.success('Success', 'Payment recorded successfully');
         this.fetchGroupBalances();
       }
     }, error: (err)=>{
