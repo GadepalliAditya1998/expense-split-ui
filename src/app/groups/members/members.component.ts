@@ -132,9 +132,9 @@ export class GroupMembersComponent implements OnInit {
         }
       }}
     };
-    const ref = this.modalService.show(ConfirmDialogComponent, initialState);
-    ref.content!.description = "Are you sure you want to remove ?";
-    ref.content!.confirmButtonClass = 'btn btn-danger';
+    this.modalRef = this.modalService.show(ConfirmDialogComponent, initialState);
+    this.modalRef.content!.description = "Are you sure you want to remove ?";
+    this.modalRef.content!.confirmButtonClass = 'btn btn-danger';
   }
 
   public deleteUser(userId: number): void {
@@ -142,7 +142,10 @@ export class GroupMembersComponent implements OnInit {
         if(d && d.isDeleted) {
           const index = this.groupUsers.findIndex(u=> u.id === userId);
           this.groupUsers.splice(index, 1);
+          
           this.notificationService.success('Success', 'User removed successfully');
+          this.modalRef?.hide();
+          this.modalRef = undefined;
         }
     }});
   }

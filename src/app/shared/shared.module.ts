@@ -14,41 +14,37 @@ import { ProfileImageNamePipe } from './pipes/profile-image-name.pipe';
 import { ConfirmDialogComponent } from './components';
 import { ToastrModule } from 'ngx-toastr';
 import { NotificationService } from './services/notification.service';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
-      HttpClientModule,
-      FormsModule,
-      ReactiveFormsModule,
-      TooltipModule.forRoot(),
-      TypeaheadModule.forRoot(),
-      BsDropdownModule.forRoot(),
-      BsDatepickerModule.forRoot(),
-      NgxBootstrapIconsModule.pick(allIcons),
-      ToastrModule.forRoot({
-        timeOut: 3000,
-        positionClass: 'toast-top-right',
-      })
-    ],
-    providers:[
-        HttpService,
-        BsModalService,
-        NotificationService,
-    ],
-    exports: [
-        TooltipModule,
-        TypeaheadModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxBootstrapIconsModule,
-        ProfileImageNamePipe,
-        BsDropdownModule,
-        ConfirmDialogComponent,
-        BsDatepickerModule,
-    ],
-    declarations: [
-        ProfileImageNamePipe,
-        ConfirmDialogComponent,
-    ]
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TooltipModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    NgxBootstrapIconsModule.pick(allIcons),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+    }),
+  ],
+  providers: [HttpService, BsModalService, NotificationService],
+  exports: [
+    CommonModule,
+    TooltipModule,
+    TypeaheadModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxBootstrapIconsModule,
+    ProfileImageNamePipe,
+    BsDropdownModule,
+    ConfirmDialogComponent,
+    BsDatepickerModule,
+  ],
+  declarations: [ProfileImageNamePipe, ConfirmDialogComponent],
 })
 export class SharedModule {}

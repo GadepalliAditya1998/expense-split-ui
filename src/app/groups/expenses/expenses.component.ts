@@ -19,6 +19,8 @@ export class ExpensesComponent implements OnInit {
   expensesList: Array<KeyValue<string, Array<any>>> = [];
   contextUser: any;
 
+  bsModalRef?: BsModalRef;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private httpService: HttpService,
@@ -98,22 +100,20 @@ export class ExpensesComponent implements OnInit {
   }
 
   public showConfirmDeleteModal(key: string, id: number) {
-    let ref : BsModalRef;
     const options: ModalOptions = {
       initialState: {
         result: (result: boolean)=>{
           if(result) {
             this.deleteExpense(key, id);
-            ref.hide();
           }
         },
       },
       ignoreBackdropClick: true,
     };
     
-    ref =  this.modalService.show(ConfirmDialogComponent, options);
-    ref.content!.title = 'Are you sure to delete the expense?';
-    ref.content!.confirmButtonClass = 'btn btn-danger';
+    this.bsModalRef = this.modalService.show(ConfirmDialogComponent, options);
+    this.bsModalRef.content!.title = 'Are you sure to delete the expense?';
+    this.bsModalRef.content!.confirmButtonClass = 'btn btn-danger';
   }
 
   public deleteExpense(key: string, id: number) {
@@ -121,6 +121,9 @@ export class ExpensesComponent implements OnInit {
       .deleteGroupExpense(this.groupId, id)
       .subscribe({ next: (d) => {
         this.notificationService.success("Success","Expense deleted successfully");
+        this.bsModalRef!.hide();
+        this.bsModalRef = undefined;
+
         this.fetchGroupExpenses();
       }, error: (err) => {} });
   }
