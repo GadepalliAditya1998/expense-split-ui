@@ -1,4 +1,6 @@
 @import "./colors";
+@import 'ngx-toastr/toastr';
+
 
 /* You can add global styles to this file, and also import other style files */
 body {
@@ -23,6 +25,11 @@ body {
   padding: 10px;
 }
 
+.px-16 {
+  padding: 0 16px;
+
+}
+
 .mr-20 {
   margin-right: 20px;
 }
@@ -41,6 +48,14 @@ body {
 
 .mr-auto {
   margin-right: auto;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
 }
 
 .my-auto {
@@ -108,4 +123,12 @@ typeahead-container {
   content: "*";
   color: red;
   margin-left: 2px;
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.no-gutters {
+  padding: 0 !important;
 }

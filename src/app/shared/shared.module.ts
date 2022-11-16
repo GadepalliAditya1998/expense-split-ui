@@ -12,6 +12,8 @@ import { HttpService } from './services/http.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ProfileImageNamePipe } from './pipes/profile-image-name.pipe';
 import { ConfirmDialogComponent } from './components';
+import { ToastrModule } from 'ngx-toastr';
+import { NotificationService } from './services/notification.service';
 
 @NgModule({
   imports: [
@@ -23,10 +25,15 @@ import { ConfirmDialogComponent } from './components';
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
       NgxBootstrapIconsModule.pick(allIcons),
+      ToastrModule.forRoot({
+        timeOut: 3000,
+        positionClass: 'toast-top-right',
+      })
     ],
     providers:[
         HttpService,
         BsModalService,
+        NotificationService,
     ],
     exports: [
         TooltipModule,

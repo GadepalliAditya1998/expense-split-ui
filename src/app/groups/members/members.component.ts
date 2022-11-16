@@ -5,6 +5,7 @@ import { map, noop, Observable, Observer, of, switchMap, tap } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components';
 import { ContextService } from 'src/app/shared/services/context.service';
 import { InvitationService } from 'src/app/shared/services/invitation.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { GroupService } from '../services/groups.service';
 
@@ -34,6 +35,7 @@ export class GroupMembersComponent implements OnInit {
     private invitationService: InvitationService,
     private userService: UserService,
     private contextService: ContextService,
+    private notificationService: NotificationService,
   ) {
     this.activatedRoute.params.subscribe((d) => {
       this.groupId = +d['id'];
@@ -84,7 +86,7 @@ export class GroupMembersComponent implements OnInit {
     ).pipe(
       switchMap((query: string) => {
         if (query) {
-          return this.userService.searchUsers(this.search).pipe(
+          return this.userService.searchUserConnections(this.search).pipe(
             map((data: any) => data || []),
             tap(
               () => noop,
@@ -113,6 +115,7 @@ export class GroupMembersComponent implements OnInit {
       next: (data) => {
         if (data) {
           this.modalRef?.hide();
+          this.notificationService.success('Success', 'User added successfully');
           this.fetchGroupMembers();
         }
       },
@@ -139,6 +142,7 @@ export class GroupMembersComponent implements OnInit {
         if(d && d.isDeleted) {
           const index = this.groupUsers.findIndex(u=> u.id === userId);
           this.groupUsers.splice(index, 1);
+          this.notificationService.success('Success', 'User removed successfully');
         }
     }});
   }

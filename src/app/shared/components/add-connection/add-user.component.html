@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Add Connection</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="mb-3 d-flex">
+        <input type="text"  class="form-control mr-10" 
+                                    [(ngModel)]="search"
+                                    placeholder="Type user name"
+                                    [typeahead]="suggestions$"
+                                    [adaptivePosition]="true"
+                                    [typeaheadAsync]="true"
+                                    [typeaheadItemTemplate] = "searchResultItem"
+                                    typeaheadOptionField="name"
+                                    [typeaheadMinLength]="3"
+                                    (typeaheadOnSelect)="onSelect($event)"
+                                    [readonly]="selectedUsers.length !== 0">
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="cancel" class="btn btn-secondary" (click)="modalRef.hide()">Cancel</button>
+    <button type="cancel" class="btn btn-primary" (click)="addUserConnection()" [disabled]="selectedUsers.length === 0">Add</button>
+</div>
+
+<ng-template #searchResultItem let-model="item" let-index="index">
+    <div class="d-flex">
+        <div class="user-image-32">
+            <img src="model.image" *ngIf="model.image" />
+            <p class="margin-clear"  *ngIf="!model.image">{{model.name | profileimagename}}</p>
+        </div>
+        <div class="mx-10 d-flex flex-column justify-content-between mr-auto">
+            <h5 class="margin-clear">{{model.name}}</h5>
+            <p class="margin-clear fs-smaller">{{model.email}}</p>
+        </div>
+        <div>
+            <span class="fs-12 text-secondary" *ngIf="model.isConnection">Connection</span>
+        </div>
+    </div>
+</ng-template>

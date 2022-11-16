@@ -3,6 +3,7 @@ import { GroupService } from './services/groups.service';
 import { AddGroupComponent } from './add-group';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
+import { NotificationService } from '../shared/services/notification.service';
 
 @Component({
   selector: 'app-groups',
@@ -17,6 +18,7 @@ export class GroupsComponent implements OnInit {
     private groupService: GroupService,
     private bsModalService: BsModalService,
     private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +42,6 @@ export class GroupsComponent implements OnInit {
   private selectGroup(id: number): void {
     this.selectedGroupId = id;
     this.selectedGroup = this.groups.find((g) => g.id === id);
-    // console.log(`groups/${this.selectedGroupId}/expenses`);
     this.router.navigateByUrl(`/home/groups/${this.selectedGroupId}`);
   }
 
@@ -59,6 +60,7 @@ export class GroupsComponent implements OnInit {
   public createGroup(data: any): void {
     this.groupService.createGroup(data).subscribe((d) => {
       if (d) {
+        this.notificationService.success('Success', 'Group created successfully');
         this.loadUserGroups();
       }
     });

@@ -23,6 +23,7 @@ import { InvitationService } from './shared/services/invitation.service';
 import { SettleUpComponent } from './groups/settleup/settleup.component';
 import { ExpensePaymentsComponent } from './groups/payments/payments.component';
 import { UserRegistrationComponent } from './register';
+import { AddUserConnectionComponent, UserInvitationComponent } from './shared/components';
 
 @NgModule({
   declarations: [
@@ -39,13 +40,14 @@ import { UserRegistrationComponent } from './register';
     SettleUpComponent,
     ExpensePaymentsComponent,
     UserRegistrationComponent,
+    UserInvitationComponent,
+    AddUserConnectionComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
-
   ],
   providers:[
     LoginService,

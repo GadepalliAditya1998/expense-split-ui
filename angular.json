@@ -32,7 +32,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/assets/css/datepicker.css"
+              "src/assets/css/datepicker.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
