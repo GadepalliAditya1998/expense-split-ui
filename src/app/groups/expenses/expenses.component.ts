@@ -16,7 +16,7 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 })
 export class ExpensesComponent implements OnInit {
   groupId: number = 0;
-  expensesList: Array<KeyValue<string, Array<any>>> = [];
+  expensesList: Array<KeyValue<string, Array<any>>> | null = null;
   contextUser: any;
 
   bsModalRef?: BsModalRef;
@@ -40,7 +40,7 @@ export class ExpensesComponent implements OnInit {
   }
 
   public fetchGroupExpenses(): void {
-    this.expensesList = [];
+    this.expensesList = null;
     this.httpService.get(`expenses/group/${this.groupId}/list`).subscribe({
       next: (data: Array<any>) => {
         const expenses: Array<any> = data;

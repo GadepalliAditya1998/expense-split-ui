@@ -15,6 +15,7 @@ export class LoginComponent {
     private loginService: LoginService,
     private routerService: Router,
   ) {
+    this.clearCredentials();
     this.initLoginForm();
   }
 
@@ -34,5 +35,9 @@ export class LoginComponent {
           }
       });
     }
+  }
+
+  public clearCredentials(): void {
+    localStorage.removeItem('userToken');
   }
 }

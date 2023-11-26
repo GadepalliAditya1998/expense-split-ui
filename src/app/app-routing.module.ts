@@ -9,6 +9,7 @@ import { GroupBalancesComponent } from './groups/balances';
 import { GroupMembersComponent } from './groups/members/members.component';
 import { ExpensePaymentsComponent } from './groups/payments/payments.component';
 import { UserRegistrationComponent } from './register/user-register.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'groups',
@@ -46,7 +48,7 @@ const routes: Routes = [
         ],
       },
       { path: 'friends', component: FriendsComponent },
-      { path: '', redirectTo: 'groups', pathMatch: 'full' },
+      { path: '', redirectTo: 'groups', pathMatch: 'full'},
     ],
   },
   { path: '**', redirectTo: 'login' },

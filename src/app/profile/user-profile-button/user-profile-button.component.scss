@@ -1,0 +1,43 @@
+.profile-button {
+  position: relative;
+
+  .user-image-48 {
+    border: 1px solid grey;
+    cursor: pointer;
+  }
+
+  .profile-button-options {
+    &-container {
+      position: fixed;
+      right: 0px !important;
+      margin-top: 10px;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      display: block;
+    }
+
+    &-list {
+      background: white;
+      box-shadow: 2px 2px 10px grey;
+      max-width: 150px;
+      list-style-type: none;
+      right: 0;
+      padding: 4px 8px !important;
+      margin-left: auto;
+      margin-top: 60px;
+      margin-right: 10px;
+      padding: 0 !important;
+      border-radius: 4px;
+
+      li {
+        padding: 6px 12px !important;
+        cursor: pointer;
+      }
+
+      li:hover {
+        background-color: #f1f1f1;
+      }
+    }
+  }
+}

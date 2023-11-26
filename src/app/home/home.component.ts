@@ -9,6 +9,9 @@ import { UserService } from '../shared/services/user.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  public isUserLoaded: boolean = false;
+  public user: any;
+
   constructor(
     private userService: UserService,
     private contextService: ContextService,
@@ -20,6 +23,8 @@ export class HomeComponent implements OnInit {
       next: (data) => {
         if (data) {
           this.contextService.setUser(data);
+          this.isUserLoaded = true;
+          this.user = data;
         }
       },
       error: (err) => {

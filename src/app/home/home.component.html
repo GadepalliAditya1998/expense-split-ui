@@ -1,9 +1,13 @@
 <div class="nav-header">
+    <div class="d-flex justify-content-end align-items-center h-100-per mr-10">
+        <app-user-profile-button [user]="user" *ngIf="user"></app-user-profile-button>
+    </div>
+    
 </div>
 <div class="nav-menu">
     <div class="logo-container"></div>
 
-    <ul>
+    <ul *ngIf="isUserLoaded">
         <!-- <li routerLinkActive="linkActive">
             <a routerLink="expenses" >
                 <span class="bi bi-people-fill"></span>

@@ -24,6 +24,8 @@ import { SettleUpComponent } from './groups/settleup/settleup.component';
 import { ExpensePaymentsComponent } from './groups/payments/payments.component';
 import { UserRegistrationComponent } from './register';
 import { AddUserConnectionComponent, UserInvitationComponent } from './shared/components';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { UserProfileButtonComponent } from './profile/user-profile-button/user-profile-button.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { AddUserConnectionComponent, UserInvitationComponent } from './shared/co
     UserRegistrationComponent,
     UserInvitationComponent,
     AddUserConnectionComponent,
+    UserProfileButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import { AddUserConnectionComponent, UserInvitationComponent } from './shared/co
     DatePipe,
     KeyValuePipe,
     InvitationService,
+    AuthGuard,
   ],
   entryComponents:[
     AddGroupComponent,

@@ -21,6 +21,10 @@ body {
   color: $primaryColor;
 }
 
+.h-100-per {
+  height: 100%;
+}
+
 .p-10 {
   padding: 10px;
 }
@@ -97,6 +101,17 @@ body {
   color: white;
 }
 
+.user-image-48 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background-color: $primaryColor;
+  color: white;
+}
+
 typeahead-container {
   width: 80% !important;
   .dropdown-menu {
@@ -131,4 +146,9 @@ typeahead-container {
 
 .no-gutters {
   padding: 0 !important;
+}
+
+.form-control-error {
+  color: red;
+  margin: 2px 0;
 }

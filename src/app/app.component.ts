@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     const routeUrl = window.location.hash;
-    if (routeUrl.includes('/register')) {
+    if (routeUrl.endsWith('/register')) {
       this.routerService.navigateByUrl('register');
     } else {
       const token = localStorage.getItem('userToken');

@@ -11,4 +11,9 @@ export class ContextService {
   getUser(): any {
     return this.user;
   }
+
+  logoutUser(): void {
+    this.user = null;
+    localStorage.clear();
+  }
 }

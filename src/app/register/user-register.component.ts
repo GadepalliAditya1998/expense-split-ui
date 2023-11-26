@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvitationService } from '../shared/services/invitation.service';
 import { UserService } from '../shared/services/user.service';
+import { NotificationService } from '../shared/services/notification.service';
 
 @Component({
   selector: 'app-user-register',
@@ -18,7 +19,8 @@ export class UserRegistrationComponent {
     private activatedRoute: ActivatedRoute,
     public inviteService: InvitationService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {
     this.activatedRoute.queryParams.subscribe((param) => {
       this.inviteUrl = param['invite'];
@@ -32,14 +34,37 @@ export class UserRegistrationComponent {
   }
 
   private initForm() {
-    this.formGroup = new FormGroup({
-      firstName: new FormControl(null, Validators.required),
-      middleName: new FormControl(null, Validators.required),
-      lastName: new FormControl(null, Validators.required),
-      dateOfBirth: new FormControl(null, Validators.required),
-      email: new FormControl(null, [Validators.email, Validators.required]),
-      password: new FormControl(null, Validators.required),
-    });
+    this.formGroup = new FormGroup(
+      {
+        firstName: new FormControl(null, Validators.required),
+        middleName: new FormControl(null),
+        lastName: new FormControl(null, Validators.required),
+        dateOfBirth: new FormControl(null, Validators.required),
+        email: new FormControl(null, [Validators.email, Validators.required]),
+        password: new FormControl(null, Validators.required),
+        confirmPassword: new FormControl(null, [Validators.required]),
+      },
+      { validators: this.confirmPasswordValidator }
+    );
+  }
+
+  public confirmPasswordValidator(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    let passwordValue = (<FormGroup>control).controls['password'].value;
+    let confirmPasswordValue = (<FormGroup>control).controls['confirmPassword'].value;
+
+    if ((<FormGroup>control).controls['confirmPassword'].valid) {
+      (<FormGroup>control).controls['confirmPassword'].setErrors(null);
+
+      if (passwordValue !== confirmPasswordValue) {
+        (<FormGroup>control).controls['confirmPassword'].setErrors({
+          passwordMismatch: true,
+        });
+      }
+    }
+
+    return null;
   }
 
   private validateAppInviteURL(): void {
@@ -67,7 +92,9 @@ export class UserRegistrationComponent {
             this.router.navigateByUrl('/login');
           }
         },
-        error: (err) => {},
+        error: (err) => {
+          this.notificationService.error('Error', err.message);
+        },
       });
     }
   }

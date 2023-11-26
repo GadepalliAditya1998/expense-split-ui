@@ -15,6 +15,7 @@ import { ConfirmDialogComponent } from './components';
 import { ToastrModule } from 'ngx-toastr';
 import { NotificationService } from './services/notification.service';
 import { CommonModule } from '@angular/common';
+import { FormValidationMessageComponent } from './components/form-validation-message/form-validation-message.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { CommonModule } from '@angular/common';
     BsDropdownModule,
     ConfirmDialogComponent,
     BsDatepickerModule,
+    FormValidationMessageComponent,
   ],
-  declarations: [ProfileImageNamePipe, ConfirmDialogComponent],
+  declarations: [ProfileImageNamePipe, ConfirmDialogComponent, FormValidationMessageComponent],
 })
 export class SharedModule {}

@@ -1,0 +1,13 @@
+<div class="profile-button">
+    <div class="user-image-48" (click)="toggleProfileOptions()">
+        <img src="user.image" *ngIf="user.image" />
+        <p class="margin-clear" *ngIf="!user.image">{{user.firstName +" " + user.lastName | profileimagename}}</p>
+    </div>
+    <div class="profile-button-options-container" *ngIf="showOptions" (click)="hideProfileOptions()">
+        <ul class="profile-button-options-list">
+            <li (click)="navigateToProfile()">Profile</li>
+            <li (click)="navigateToSettings()">Settings</li>
+            <li (click)="logout()">Logout</li>
+        </ul>
+    </div>
+</div>
